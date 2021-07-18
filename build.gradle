@@ -1,0 +1,52 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'jacoco'
+}
+
+group = 'com.franciscoreina.registration'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	swagger = '3.0.0'
+	lombok = '1.18.20'
+	mockito = '3.11.2'
+}
+
+jacoco {
+	toolVersion = "0.8.7"
+}
+
+dependencies {
+	implementation "org.springframework.boot:spring-boot-starter-web"
+	implementation "org.springframework.boot:spring-boot-starter-validation"
+	implementation "io.springfox:springfox-boot-starter:${swagger}"
+	implementation "io.springfox:springfox-swagger-ui:${swagger}"
+
+	compileOnly "org.projectlombok:lombok:${lombok}"
+	annotationProcessor "org.projectlombok:lombok:${lombok}"
+
+	// START Test Zone
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation "org.mockito:mockito-core:${mockito}"
+
+	testCompileOnly "org.projectlombok:lombok:${lombok}"
+	testAnnotationProcessor "org.projectlombok:lombok:${lombok}"
+	// END Test Zone
+}
+
+test {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+	dependsOn test
+}

@@ -1,0 +1,320 @@
+{
+	"info": {
+		"_postman_id": "c85c05ae-f88a-4ee6-961b-ede2124432a3",
+		"name": "Registration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user/register/v1",
+			"item": [
+				{
+					"name": "1 Register new user - 200 Ok",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json(); \r",
+									"pm.test(\"Verify Json values\", function () { \r",
+									"    pm.expect(jsonData.description).is.to.equal(\"User registered\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"username\",\r\n    \"password\" : \"Pass123\",\r\n    \"dateOfBirth\" : \"2000-01-01\",\r\n    \"ssn\" : \"000000000\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/register/v1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2 Register an existing user - 200 Ok",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(409);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json(); \r",
+									"pm.test(\"Verify Json values\", function () { \r",
+									"    pm.expect(jsonData.description).is.to.equal(\"User has already registered\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"username\",\r\n    \"password\" : \"Pass123\",\r\n    \"dateOfBirth\" : \"2000-01-01\",\r\n    \"ssn\" : \"000000000\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/register/v1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid username - 400 Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json(); \r",
+									"pm.test(\"Verify Json values\", function () { \r",
+									"    pm.expect(jsonData.fieldErrors).to.be.an(\"array\"); \r",
+									"    const object = jsonData.fieldErrors.find(m => m.description);\r",
+									"    pm.expect(object.description).is.to.equal(\"ERROR: Invalid password\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"username\",\r\n    \"password\" : \"pass123\",\r\n    \"dateOfBirth\" : \"2000-01-01\",\r\n    \"ssn\" : \"000000000\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/register/v1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid password - 400 Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json(); \r",
+									"pm.test(\"Verify Json values\", function () { \r",
+									"    pm.expect(jsonData.fieldErrors).to.be.an(\"array\"); \r",
+									"    const object = jsonData.fieldErrors.find(m => m.description);\r",
+									"    pm.expect(object.description).is.to.equal(\"ERROR: Invalid username\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"user name\",\r\n    \"password\" : \"Pass123\",\r\n    \"dateOfBirth\" : \"2000-01-01\",\r\n    \"ssn\" : \"000000000\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/register/v1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid dateOfBirth - 400 Bad Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json(); \r",
+									"pm.test(\"Verify Json values\", function () { \r",
+									"    pm.expect(jsonData.fieldErrors).to.be.an(\"array\"); \r",
+									"    const object = jsonData.fieldErrors.find(m => m.description);\r",
+									"    pm.expect(object.description).is.to.equal(\"ERROR: Invalid dateOfBirth\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"username\",\r\n    \"password\" : \"Pass123\",\r\n    \"dateOfBirth\" : \"200-01-01\",\r\n    \"ssn\" : \"000000000\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/register/v1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User excluded - 403 Forbidden",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(403);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"var jsonData = pm.response.json(); \r",
+									"pm.test(\"Verify Json values\", function () { \r",
+									"    pm.expect(jsonData.description).is.to.equal(\"ERROR: User is in the exclusion list\"); \r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"adaLovelace\",\r\n    \"password\" : \"Analytical3ngineRulz\",\r\n    \"dateOfBirth\" : \"1815-12-10\",\r\n    \"ssn\" : \"85385075\"\r\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/user/register/v1/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"register",
+								"v1",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
