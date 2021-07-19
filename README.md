@@ -11,7 +11,7 @@ Configure Gradle: https://gradle.org/install/
 
 ### Run the Registration app
 
-Clone the *Registration.zip* repository which contains de project.  
+Clone the *Registration* repository which contains de project.  
 
 Once you have configured the JDK and Maven, run the following commands to:
 
